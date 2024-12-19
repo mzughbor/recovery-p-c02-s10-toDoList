@@ -1,5 +1,11 @@
 const addForm = document.querySelector(".add");
 const list = document.querySelector(".todos");
+// getting the local storage
+const savedTodos = localStorage.getItem("todos");
+if (savedTodos) {
+  list.innerHTML = savedTodos;
+}
+
 const search = document.querySelector(".search input");
 
 const generate = (toDo) => {
@@ -19,12 +25,16 @@ addForm.addEventListener("submit", (e) => {
     generate(toDo);
     addForm.reset();
   }
+  // adding to local storage
+  localStorage.setItem("todos", list.innerHTML);
 });
 
 // deleting the list items
 list.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     e.target.parentElement.remove();
+    // removing from local storage
+    localStorage.setItem("todos", list.innerHTML);
   }
 });
 
